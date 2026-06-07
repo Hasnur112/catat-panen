@@ -4,7 +4,12 @@
     <!-- Header -->
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
         <div>
-            <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0;">📋 Data Panen</h1>
+            <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                </svg>
+                Data Panen
+            </h1>
             <p style="color: #64748b; font-size: 14px; margin: 4px 0 0;">
                 {{ auth()->user()->isAdmin() ? 'Semua catatan panen dari seluruh petani' : 'Catatan panen Anda' }}
             </p>
@@ -105,7 +110,11 @@
         </div>
         @else
         <div style="padding: 60px; text-align: center;">
-            <div style="font-size: 56px; margin-bottom: 16px;">🌾</div>
+            <div style="color: #16a34a; margin-bottom: 16px; display: inline-flex; align-items: center; justify-content: center;">
+                <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M12 7c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1"/>
+                </svg>
+            </div>
             <p style="font-size: 16px; font-weight: 600; color: #64748b; margin: 0 0 8px;">Belum ada data panen</p>
             <p style="font-size: 14px; color: #94a3b8; margin: 0 0 20px;">{{ request()->hasAny(['jenis_padi','bulan']) ? 'Coba ubah filter pencarian' : 'Mulai catat hasil panen pertama Anda!' }}</p>
             <a href="{{ route('panen.create') }}" class="btn-primary">Catat Sekarang</a>

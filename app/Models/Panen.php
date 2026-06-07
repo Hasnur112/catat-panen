@@ -15,6 +15,7 @@ class Panen extends Model
         'volume',
         'tanggal',
         'keterangan',
+        'status',
     ];
 
     protected function casts(): array

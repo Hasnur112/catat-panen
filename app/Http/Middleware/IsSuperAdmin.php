@@ -6,12 +6,12 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin
+class IsSuperAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->isAdminOrSuper()) {
-            abort(403, 'Akses ditolak. Hanya Administrator yang dapat mengakses halaman ini.');
+        if (!auth()->check() || !auth()->user()->isSuperAdmin()) {
+            abort(403, 'Akses ditolak. Hanya Super Administrator yang dapat mengakses halaman ini.');
         }
 
         return $next($request);

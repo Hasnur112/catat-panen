@@ -8,7 +8,12 @@
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 Kembali ke Data Panen
             </a>
-            <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0;">🌾 Catat Panen Baru</h1>
+            <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                </svg>
+                Catat Panen Baru
+            </h1>
             <p style="color: #64748b; font-size: 14px; margin: 4px 0 0;">Isi formulir berikut untuk mencatat hasil panen Anda.</p>
         </div>
 

@@ -113,8 +113,8 @@
             text-align: center; position: relative; overflow: hidden;
         }
         .cta-section::before {
-            content: '🌾'; font-size: 200px; position: absolute; right: -20px; top: -20px;
-            opacity: 0.05; line-height: 1;
+            content: ''; position: absolute; top: -50%; right: -20%; width: 300px; height: 300px;
+            background: rgba(255,255,255,0.05); border-radius: 50%;
         }
 
         /* Footer */
@@ -135,7 +135,11 @@
     <section class="hero">
         <nav>
             <div class="logo">
-                <div class="logo-icon">🌾</div>
+                <div class="logo-icon" style="color: #fff; display: flex; align-items: center; justify-content: center;">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M12 7c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1"/>
+                    </svg>
+                </div>
                 <span class="logo-text">CatatPanen</span>
             </div>
             <div class="nav-links">
@@ -165,7 +169,7 @@
                         </a>
                     @else
                         <a href="{{ route('register') }}" class="btn-cta-main">
-                            🚀 Mulai Sekarang — Gratis
+                            Mulai Sekarang — Gratis
                         </a>
                         <a href="{{ route('login') }}" class="btn-cta-outline">
                             Sudah punya akun? Masuk
@@ -205,32 +209,56 @@
 
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: #dcfce7;">📋</div>
+                    <div class="feature-icon" style="background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                        </svg>
+                    </div>
                     <div class="feature-title">Pencatatan CRUD Lengkap</div>
                     <div class="feature-desc">Tambah, lihat, ubah, dan hapus catatan panen dengan mudah. Dukung pencatatan tanggal, volume, varietas, dan keterangan tambahan.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: #fef3c7;">📊</div>
+                    <div class="feature-icon" style="background: #fef3c7; color: #d97706; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"/>
+                        </svg>
+                    </div>
                     <div class="feature-title">Dashboard Analitik</div>
                     <div class="feature-desc">Visualisasi data produksi bulanan dengan grafik interaktif dan peringkat varietas padi berdasarkan total produksi.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: #dbeafe;">🔐</div>
+                    <div class="feature-icon" style="background: #dbeafe; color: #2563eb; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
                     <div class="feature-title">Kontrol Akses Berbasis Peran</div>
                     <div class="feature-desc">Dua level akses: Administrator untuk manajemen penuh, dan Petani untuk mengelola data panen mereka sendiri.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: #fce7f3;">🌾</div>
+                    <div class="feature-icon" style="background: #fce7f3; color: #db2777; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M12 7c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1"/>
+                        </svg>
+                    </div>
                     <div class="feature-title">Analisis Varietas</div>
                     <div class="feature-desc">Bandingkan produktivitas berbagai varietas padi seperti Ciherang, Inpari 32, Mekongga, dan lainnya secara langsung.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: #f3e8ff;">👥</div>
+                    <div class="feature-icon" style="background: #f3e8ff; color: #7c3aed; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
                     <div class="feature-title">Manajemen Pengguna</div>
                     <div class="feature-desc">Admin dapat membuat, mengedit, dan mengelola akun seluruh petani di kelompok tani dengan mudah.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: #ecfdf5;">🔍</div>
+                    <div class="feature-icon" style="background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
                     <div class="feature-title">Filter & Pencarian</div>
                     <div class="feature-desc">Saring data panen berdasarkan jenis padi atau periode bulan untuk analisis yang lebih fokus dan akurat.</div>
                 </div>
@@ -246,12 +274,12 @@
                 <p style="color: rgba(255,255,255,0.75); font-size: 16px; margin-bottom: 32px;">Bergabunglah dan rasakan kemudahan pencatatan hasil panen berbasis data.</p>
                 @guest
                 <a href="{{ route('register') }}" style="background: #fff; color: #14532d; padding: 14px 36px; border-radius: 12px; font-size: 16px; font-weight: 700; text-decoration: none; display: inline-block; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
-                    Daftar Sekarang — Gratis 🚀
+                    Daftar Sekarang — Gratis
                 </a>
                 @endguest
                 @auth
                 <a href="{{ url('/dashboard') }}" style="background: #fff; color: #14532d; padding: 14px 36px; border-radius: 12px; font-size: 16px; font-weight: 700; text-decoration: none; display: inline-block; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
-                    Buka Dashboard 📊
+                    Buka Dashboard
                 </a>
                 @endauth
             </div>

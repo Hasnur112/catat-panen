@@ -4,7 +4,12 @@
     <!-- Header -->
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
         <div>
-            <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0;">👥 Kelola Pengguna</h1>
+            <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                Kelola Pengguna
+            </h1>
             <p style="color: #64748b; font-size: 14px; margin: 4px 0 0;">Manajemen akun seluruh pengguna sistem CatatPanen.</p>
         </div>
         <a href="{{ route('admin.users.create') }}" class="btn-primary">
@@ -54,9 +59,9 @@
                     <td style="color: #475569;">{{ $user->email }}</td>
                     <td>
                         @if($user->isAdmin())
-                            <span class="badge badge-green">👑 Admin</span>
+                            <span class="badge badge-green">Admin</span>
                         @else
-                            <span class="badge badge-blue">🌾 Petani</span>
+                            <span class="badge badge-blue">Petani</span>
                         @endif
                     </td>
                     <td style="font-weight: 600; color: #16a34a; text-align: center;">{{ $user->panen_count }}</td>
@@ -87,7 +92,11 @@
         </div>
         @else
         <div style="padding: 60px; text-align: center; color: #94a3b8;">
-            <div style="font-size: 48px; margin-bottom: 12px;">👤</div>
+            <div style="color: #64748b; margin-bottom: 12px; display: inline-flex; align-items: center; justify-content: center;">
+                <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+            </div>
             <p style="font-size: 15px; font-weight: 600;">Belum ada pengguna</p>
         </div>
         @endif

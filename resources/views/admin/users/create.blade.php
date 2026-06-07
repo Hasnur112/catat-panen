@@ -7,7 +7,12 @@
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 Kembali ke Daftar Pengguna
             </a>
-            <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0;">➕ Tambah Pengguna</h1>
+            <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                </svg>
+                Tambah Pengguna
+            </h1>
             <p style="color: #64748b; font-size: 14px; margin: 4px 0 0;">Buat akun baru untuk petani atau administrator.</p>
         </div>
 
@@ -30,8 +35,8 @@
                 <div class="form-group">
                     <label for="role" class="form-label">Role <span style="color: #dc2626;">*</span></label>
                     <select id="role" name="role" class="form-control">
-                        <option value="petani" {{ old('role') === 'petani' ? 'selected' : '' }}>🌾 Petani</option>
-                        <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>👑 Administrator</option>
+                        <option value="petani" {{ old('role') === 'petani' ? 'selected' : '' }}>Petani</option>
+                        <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Administrator</option>
                     </select>
                     @error('role')<div class="form-error">{{ $message }}</div>@enderror
                 </div>

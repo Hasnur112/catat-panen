@@ -38,8 +38,23 @@ class User extends Authenticatable
         return $this->hasMany(Panen::class);
     }
 
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'super_admin';
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
+    }
+
+    public function isAdminOrSuper(): bool
+    {
+        return in_array($this->role, ['admin', 'super_admin']);
+    }
+
+    public function isPetani(): bool
+    {
+        return $this->role === 'petani';
     }
 }

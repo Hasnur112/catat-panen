@@ -47,10 +47,13 @@ class PanenController extends Controller
 
     public function store(StorePanenRequest $request)
     {
-        auth()->user()->panen()->create($request->validated());
+        auth()->user()->panen()->create(array_merge(
+            $request->validated(),
+            ['status' => 'Pending']
+        ));
 
         return redirect()->route('panen.index')
-            ->with('success', 'Data panen berhasil dicatat!');
+            ->with('success', 'Data panen berhasil dicatat! Menunggu verifikasi admin.');
     }
 
     public function edit(Panen $panen)

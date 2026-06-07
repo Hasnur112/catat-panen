@@ -148,7 +148,11 @@
         <!-- Logo -->
         <div style="padding: 24px 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
             <a href="{{ route('dashboard') }}" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-                <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🌾</div>
+                <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff;">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M12 7c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1"/>
+                    </svg>
+                </div>
                 <div>
                     <div style="color: #fff; font-size: 16px; font-weight: 700; line-height: 1;">CatatPanen</div>
                     <div style="color: rgba(255,255,255,0.6); font-size: 11px; margin-top: 2px;">Manajemen Hasil Panen</div>
@@ -199,12 +203,50 @@
             <div style="padding: 0 12px; margin: 16px 0 8px;">
                 <span style="color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 0 8px;">Administrasi</span>
             </div>
+            <a href="{{ route('admin.verifikasi.index') }}"
+               class="nav-item {{ request()->routeIs('admin.verifikasi.*') ? 'active' : '' }}">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Verifikasi Panen
+                @php $pendingCount = \App\Models\Panen::where('status','Pending')->count(); @endphp
+                @if($pendingCount > 0)
+                <span style="background: #ef4444; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 20px; margin-left: auto;">{{ $pendingCount }}</span>
+                @endif
+            </a>
+            <a href="{{ route('admin.varietas.index') }}"
+               class="nav-item {{ request()->routeIs('admin.varietas.*') ? 'active' : '' }}">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                </svg>
+                Master Varietas
+            </a>
             <a href="{{ route('admin.users.index') }}"
                class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                 <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                 </svg>
                 Kelola Pengguna
+            </a>
+            @endif
+
+            @if(auth()->user()->isSuperAdmin())
+            <div style="padding: 0 12px; margin: 16px 0 8px;">
+                <span style="color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 0 8px;">Super Admin</span>
+            </div>
+            <a href="{{ route('super_admin.dashboard') }}"
+               class="nav-item {{ request()->routeIs('super_admin.dashboard') ? 'active' : '' }}">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11M9 21V3m0 18h12M9 3h12"/>
+                </svg>
+                Dashboard Global
+            </a>
+            <a href="{{ route('super_admin.users') }}"
+               class="nav-item {{ request()->routeIs('super_admin.users*') ? 'active' : '' }}">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                Kelola Semua Akun
             </a>
             @endif
         </nav>
@@ -217,7 +259,12 @@
                 </div>
                 <div style="overflow: hidden;">
                     <div style="color: #fff; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ auth()->user()->name }}</div>
-                    <div style="color: rgba(255,255,255,0.55); font-size: 11px;">{{ auth()->user()->isAdmin() ? '👑 Administrator' : '🌾 Petani' }}</div>
+                    <div style="color: rgba(255,255,255,0.55); font-size: 11px;">
+                        @if(auth()->user()->isSuperAdmin()) Super Admin
+                        @elseif(auth()->user()->isAdmin()) Administrator
+                        @else Petani
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -245,7 +292,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
             </button>
-            <span style="font-weight: 700; color: #16a34a;">🌾 CatatPanen</span>
+            <span style="font-weight: 700; color: #16a34a; display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M12 7c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1"/>
+                </svg>
+                CatatPanen
+            </span>
             <div></div>
         </div>
 

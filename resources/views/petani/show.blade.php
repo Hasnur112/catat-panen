@@ -25,13 +25,19 @@
                     {{ $petani->name }}
                 </h1>
                 <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">
-                    {{ $petani->isAdmin() ? '👑 Administrator' : '🌾 Petani' }} · {{ $petani->email }}
+                    {{ $petani->isAdmin() ? 'Administrator' : 'Petani' }} · {{ $petani->email }}
                 </p>
             </div>
             <!-- Info badge -->
             <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 10px 16px; text-align: center; flex-shrink: 0;">
                 <div style="font-size: 11px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Mode</div>
-                <div style="font-size: 13px; font-weight: 700; color: #16a34a; margin-top: 2px;">👁️ Lihat Saja</div>
+                <div style="font-size: 13px; font-weight: 700; color: #16a34a; margin-top: 2px; display: inline-flex; align-items: center; gap: 4px;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    Lihat Saja
+                </div>
             </div>
         </div>
 
@@ -62,8 +68,11 @@
     <!-- Peringkat Varietas -->
     @if($variasTerbanyak->count() > 0)
     <div class="stat-card" style="padding: 24px; margin-bottom: 24px;">
-        <h3 style="font-size: 15px; font-weight: 700; color: #1e293b; margin: 0 0 16px;">
-            🏆 Varietas yang Pernah Dipanen
+        <h3 style="font-size: 15px; font-weight: 700; color: #1e293b; margin: 0 0 16px; display: flex; align-items: center; gap: 8px;">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: #d97706;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15a4 4 0 004-4V5H8v6a4 4 0 004 4zm0 0v4m-4 0h8M4 9h4m12 0h-4"/>
+            </svg>
+            Varietas yang Pernah Dipanen
         </h3>
         <div style="display: grid; gap: 10px;">
             @foreach($variasTerbanyak as $item)
@@ -171,7 +180,11 @@
         </div>
         @else
         <div style="padding: 60px; text-align: center;">
-            <div style="font-size: 56px; margin-bottom: 16px;">🌱</div>
+            <div style="color: #16a34a; margin-bottom: 16px; display: inline-flex; align-items: center; justify-content: center;">
+                <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M12 7c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1m6 4c2-1 4-1 6 1m-6-1c-2-1-4-1-6 1"/>
+                </svg>
+            </div>
             <p style="font-size: 15px; font-weight: 600; color: #64748b; margin: 0 0 6px;">
                 {{ request()->hasAny(['jenis_padi','bulan']) ? 'Data tidak ditemukan' : 'Belum ada catatan panen' }}
             </p>

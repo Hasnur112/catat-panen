@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('volume', 10, 2);
             $table->date('tanggal');
             $table->text('keterangan')->nullable();
+            $table->enum('status', ['Pending', 'Verified'])->default('Pending');
             $table->timestamps();
         });
     }

@@ -3,7 +3,12 @@
 
     <!-- Header -->
     <div style="margin-bottom: 28px;">
-        <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0;">👨‍🌾 Data Panen Petani</h1>
+        <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0; display: flex; align-items: center; gap: 8px;">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            Data Panen Petani
+        </h1>
         <p style="color: #64748b; font-size: 14px; margin: 4px 0 0;">Lihat hasil panen yang dicatat oleh petani lain.</p>
     </div>
 
@@ -28,7 +33,7 @@
                         {{ $p->name }}
                     </div>
                     <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">
-                        {{ $p->isAdmin() ? '👑 Administrator' : '🌾 Petani' }}
+                        {{ $p->isAdmin() ? 'Administrator' : 'Petani' }}
                     </div>
                 </div>
             </div>
@@ -65,7 +70,11 @@
     </div>
     @else
     <div class="stat-card" style="padding: 60px; text-align: center;">
-        <div style="font-size: 56px; margin-bottom: 16px;">👥</div>
+        <div style="color: #16a34a; margin-bottom: 16px; display: inline-flex; align-items: center; justify-content: center;">
+            <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+        </div>
         <p style="font-size: 16px; font-weight: 600; color: #64748b; margin: 0 0 8px;">Belum ada pengguna lain</p>
         <p style="font-size: 14px; color: #94a3b8;">Belum ada petani lain yang terdaftar di sistem.</p>
     </div>

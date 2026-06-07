@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $user = auth()->user();
 
         // Statistik utama
-        $query = $user->isAdmin() ? Panen::query() : Panen::where('user_id', $user->id);
+        $query = $user->isAdminOrSuper() ? Panen::query() : Panen::where('user_id', $user->id);
 
         $totalPanen   = (clone $query)->count();
         $totalVolume  = (clone $query)->sum('volume');

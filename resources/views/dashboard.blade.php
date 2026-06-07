@@ -140,9 +140,10 @@
             <thead>
                 <tr>
                     <th>Tanggal</th>
-                    @if(auth()->user()->isAdmin())<th>Petani</th>@endif
+                    @if(auth()->user()->isAdminOrSuper())<th>Petani</th>@endif
                     <th>Jenis Padi</th>
                     <th>Volume</th>
+                    <th>Status</th>
                     <th>Keterangan</th>
                 </tr>
             </thead>
@@ -150,10 +151,17 @@
                 @foreach($panenTerakhir as $p)
                 <tr>
                     <td>{{ $p->tanggal->format('d M Y') }}</td>
-                    @if(auth()->user()->isAdmin())<td>{{ $p->user->name }}</td>@endif
+                    @if(auth()->user()->isAdminOrSuper())<td>{{ $p->user->name }}</td>@endif
                     <td><span class="badge badge-green">{{ $p->jenis_padi }}</span></td>
                     <td style="font-weight: 600; color: #16a34a;">{{ number_format($p->volume, 2, ',', '.') }} kg</td>
-                    <td style="color: #94a3b8;">{{ $p->keterangan ?? '—' }}</td>
+                    <td>
+                        @if($p->status === 'Verified')
+                            <span class="badge badge-green">Verified</span>
+                        @else
+                            <span class="badge badge-yellow">Pending</span>
+                        @endif
+                    </td>
+                    <td style="color: #94a3b8;">{{ $p->keterangan ? Str::limit($p->keterangan, 40) : '—' }}</td>
                 </tr>
                 @endforeach
             </tbody>

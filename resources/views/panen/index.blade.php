@@ -11,7 +11,7 @@
                 Data Panen
             </h1>
             <p style="color: #64748b; font-size: 14px; margin: 4px 0 0;">
-                {{ auth()->user()->isAdmin() ? 'Semua catatan panen dari seluruh petani' : 'Catatan panen Anda' }}
+                {{ auth()->user()->isAdminOrSuper() ? 'Semua catatan panen dari seluruh petani' : 'Catatan panen Anda' }}
             </p>
         </div>
         <a href="{{ route('panen.create') }}" class="btn-primary">
@@ -62,9 +62,10 @@
                 <tr>
                     <th>#</th>
                     <th>Tanggal</th>
-                    @if(auth()->user()->isAdmin())<th>Petani</th>@endif
+                    @if(auth()->user()->isAdminOrSuper())<th>Petani</th>@endif
                     <th>Jenis Padi</th>
                     <th>Volume (kg)</th>
+                    <th>Status</th>
                     <th>Keterangan</th>
                     <th>Aksi</th>
                 </tr>
@@ -74,9 +75,16 @@
                 <tr>
                     <td style="color: #94a3b8; font-size: 13px;">{{ $panen->firstItem() + $idx }}</td>
                     <td style="font-weight: 500;">{{ $p->tanggal->format('d M Y') }}</td>
-                    @if(auth()->user()->isAdmin())<td>{{ $p->user->name }}</td>@endif
+                    @if(auth()->user()->isAdminOrSuper())<td>{{ $p->user->name }}</td>@endif
                     <td><span class="badge badge-green">{{ $p->jenis_padi }}</span></td>
                     <td style="font-weight: 700; color: #16a34a;">{{ number_format($p->volume, 2, ',', '.') }}</td>
+                    <td>
+                        @if($p->status === 'Verified')
+                            <span class="badge badge-green">Verified</span>
+                        @else
+                            <span class="badge badge-yellow">Pending</span>
+                        @endif
+                    </td>
                     <td style="color: #94a3b8; max-width: 200px;">
                         <span title="{{ $p->keterangan }}">{{ Str::limit($p->keterangan, 40) ?? '—' }}</span>
                     </td>

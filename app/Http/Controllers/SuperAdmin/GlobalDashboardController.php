@@ -63,11 +63,26 @@ class GlobalDashboardController extends Controller
     /**
      * Kelola akun (daftar semua user + tambah/edit/hapus)
      */
-    public function users()
+    public function users(\Illuminate\Http\Request $request)
     {
-        $users = User::withCount('panen')->withSum('panen', 'volume')->orderBy('name')->paginate(20);
+        $query = User::withCount('panen')->withSum('panen', 'volume')->orderBy('name');
+
+        if ($request->filled('search')) {
+            $q = $request->search;
+            $query->where(function($builder) use ($q) {
+                $builder->where('name', 'like', "%{$q}%")
+                        ->orWhere('email', 'like', "%{$q}%");
+            });
+        }
+
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        $users = $query->paginate(20);
         return view('super_admin.users', compact('users'));
     }
+
 
     /**
      * Update role user

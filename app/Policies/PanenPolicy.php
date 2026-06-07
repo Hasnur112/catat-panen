@@ -9,11 +9,17 @@ class PanenPolicy
 {
     public function update(User $user, Panen $panen): bool
     {
-        return $user->isAdmin() || $user->id === $panen->user_id;
+        if ($user->isAdminOrSuper()) {
+            return true;
+        }
+        return $user->id === $panen->user_id && $panen->status === 'Pending';
     }
 
     public function delete(User $user, Panen $panen): bool
     {
-        return $user->isAdmin() || $user->id === $panen->user_id;
+        if ($user->isAdminOrSuper()) {
+            return true;
+        }
+        return $user->id === $panen->user_id && $panen->status === 'Pending';
     }
 }

@@ -14,9 +14,16 @@ class PetaniController extends Controller
      */
     public function index()
     {
-        $petani = User::where('id', '!=', auth()->id())
-            ->withCount('panen')
-            ->withSum('panen', 'volume')
+        // Hanya Petani (bukan admin) yang ditampilkan di daftar Petani,
+        // dan hanya hitung/sum data panen yang sudah Verified.
+        $petani = User::where('role', 'petani')
+            ->where('id', '!=', auth()->id())
+            ->withCount(['panen' => function ($query) {
+                $query->where('status', 'Verified');
+            }])
+            ->withSum(['panen' => function ($query) {
+                $query->where('status', 'Verified');
+            }], 'volume')
             ->orderBy('name')
             ->get();
 
@@ -33,7 +40,8 @@ class PetaniController extends Controller
             return redirect()->route('panen.index');
         }
 
-        $query = Panen::where('user_id', $petani->id);
+        $query = Panen::where('user_id', $petani->id)
+                      ->where('status', 'Verified');
 
         // Filter jenis padi
         if ($request->filled('jenis_padi')) {
@@ -48,17 +56,17 @@ class PetaniController extends Controller
 
         $panen = $query->latest('tanggal')->paginate(10)->withQueryString();
 
-        // Statistik ringkas petani ini
-        $totalVolume     = Panen::where('user_id', $petani->id)->sum('volume');
-        $totalPanen      = Panen::where('user_id', $petani->id)->count();
+        // Statistik ringkas petani ini (hanya Verified)
+        $totalVolume     = Panen::where('user_id', $petani->id)->where('status', 'Verified')->sum('volume');
+        $totalPanen      = Panen::where('user_id', $petani->id)->where('status', 'Verified')->count();
         $variasTerbanyak = Panen::where('user_id', $petani->id)
+            ->where('status', 'Verified')
             ->select('jenis_padi', DB::raw('SUM(volume) as total_volume'))
             ->groupBy('jenis_padi')
             ->orderByDesc('total_volume')
             ->get();
 
-        $jenisPadi = ['Ciherang', 'Inpari 32', 'Inpari 42', 'Mekongga',
-                      'IR64', 'Situ Bagendit', 'Logawa', 'Cibogo', 'Memberamo', 'Lainnya'];
+        $jenisPadi = \App\Models\Varietas::orderBy('nama')->pluck('nama')->toArray();
 
         return view('petani.show', compact(
             'petani', 'panen', 'totalVolume', 'totalPanen',

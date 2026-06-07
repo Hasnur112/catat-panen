@@ -15,7 +15,14 @@ class VerifikasiController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Panen::with('user')->where('status', 'Pending');
+        // Tab status filter: Pending | Verified | '' (semua)
+        $statusFilter = $request->get('status', 'Pending');
+
+        $query = Panen::with('user');
+
+        if ($statusFilter !== '') {
+            $query->where('status', $statusFilter);
+        }
 
         // Filter opsional
         if ($request->filled('petani_id')) {
@@ -28,12 +35,16 @@ class VerifikasiController extends Controller
             $query->where('tanggal', '<=', $request->tanggal_sampai);
         }
 
-        $panen   = $query->latest('tanggal')->paginate(15)->withQueryString();
-        $petani  = User::where('role', 'petani')->orderBy('name')->get();
-        $total   = Panen::where('status', 'Pending')->count();
+        $panen        = $query->latest('tanggal')->paginate(15)->withQueryString();
+        $petani       = User::where('role', 'petani')->orderBy('name')->get();
+        $totalPending  = Panen::where('status', 'Pending')->count();
+        $totalVerified = Panen::where('status', 'Verified')->count();
 
-        return view('admin.verifikasi.index', compact('panen', 'petani', 'total'));
+        return view('admin.verifikasi.index', compact(
+            'panen', 'petani', 'totalPending', 'totalVerified', 'statusFilter'
+        ));
     }
+
 
     /**
      * Verifikasi (approve) satu data panen.

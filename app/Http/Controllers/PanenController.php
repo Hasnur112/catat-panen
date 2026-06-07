@@ -8,16 +8,12 @@ use Illuminate\Http\Request;
 
 class PanenController extends Controller
 {
-    private array $jenisPadi = [
-        'Ciherang', 'Inpari 32', 'Inpari 42', 'Mekongga',
-        'IR64', 'Situ Bagendit', 'Logawa', 'Cibogo',
-        'Memberamo', 'Lainnya',
-    ];
+    // Varietas padi akan diambil dari database (tabel varietas)
 
     public function index(Request $request)
     {
         $user  = auth()->user();
-        $query = $user->isAdmin()
+        $query = $user->isAdminOrSuper()
             ? Panen::with('user')
             : Panen::where('user_id', $user->id)->with('user');
 
@@ -36,13 +32,15 @@ class PanenController extends Controller
 
         return view('panen.index', [
             'panen'     => $panen,
-            'jenisPadi' => $this->jenisPadi,
+            'jenisPadi' => \App\Models\Varietas::orderBy('nama')->pluck('nama')->toArray(),
         ]);
     }
 
     public function create()
     {
-        return view('panen.create', ['jenisPadi' => $this->jenisPadi]);
+        return view('panen.create', [
+            'jenisPadi' => \App\Models\Varietas::orderBy('nama')->pluck('nama')->toArray()
+        ]);
     }
 
     public function store(StorePanenRequest $request)
@@ -59,7 +57,10 @@ class PanenController extends Controller
     public function edit(Panen $panen)
     {
         $this->authorize('update', $panen);
-        return view('panen.edit', ['panen' => $panen, 'jenisPadi' => $this->jenisPadi]);
+        return view('panen.edit', [
+            'panen' => $panen, 
+            'jenisPadi' => \App\Models\Varietas::orderBy('nama')->pluck('nama')->toArray()
+        ]);
     }
 
     public function update(StorePanenRequest $request, Panen $panen)

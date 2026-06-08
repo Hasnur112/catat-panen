@@ -7,10 +7,11 @@
             <h1 style="font-size: 24px; font-weight: 800; color: #14532d; margin: 0;">Dashboard</h1>
             <p style="color: #64748b; font-size: 14px; margin: 4px 0 0;">Selamat datang, {{ auth()->user()->name }}! Berikut ringkasan data panen Anda.</p>
         </div>
-        <a href="{{ route('panen.create') }}" class="btn-primary">
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            Catat Panen Baru
-        </a>
+        @if(!auth()->user()->isAdminOrSuper())
+    <a href="{{ route('panen.create') }}" class="inline-flex items-center justify-center px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition text-sm font-semibold">
+        + Catat Panen Baru
+    </a>
+@endif
     </div>
 
     <!-- Stat Cards -->

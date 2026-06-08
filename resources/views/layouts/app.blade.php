@@ -6,14 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'CatatPanen') }} — {{ $title ?? 'Dashboard' }}</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-    <!-- Scripts & Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
@@ -143,9 +140,7 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
     <aside id="sidebar">
-        <!-- Logo -->
         <div style="padding: 24px 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
             <a href="{{ route('dashboard') }}" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
                 <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff;">
@@ -160,7 +155,6 @@
             </a>
         </div>
 
-        <!-- Navigation -->
         <nav style="flex: 1; padding: 16px 0; overflow-y: auto;">
             <div style="padding: 0 12px; margin-bottom: 8px;">
                 <span style="color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 0 8px;">Menu Utama</span>
@@ -174,6 +168,7 @@
                 Dashboard
             </a>
 
+         
             <a href="{{ route('panen.index') }}"
                class="nav-item {{ request()->routeIs('panen.*') ? 'active' : '' }}">
                 <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,7 +176,7 @@
                 </svg>
                 Data Panen
             </a>
-
+   @if(!auth()->user()->isAdminOrSuper())
             <a href="{{ route('panen.create') }}"
                class="nav-item {{ request()->routeIs('panen.create') ? 'active' : '' }}">
                 <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,6 +184,7 @@
                 </svg>
                 Catat Panen
             </a>
+            @endif
 
             <a href="{{ route('petani.index') }}"
                class="nav-item {{ request()->routeIs('petani.*') ? 'active' : '' }}">
@@ -252,7 +248,6 @@
             @endif
         </nav>
 
-        <!-- User Info -->
         <div style="padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.1);">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                 <div style="width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 14px; flex-shrink: 0;">
@@ -281,12 +276,9 @@
         </div>
     </aside>
 
-    <!-- Mobile overlay -->
     <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-    <!-- Main Content -->
     <div id="main-content">
-        <!-- Mobile Header -->
         <div style="display: none; align-items: center; justify-content: space-between; padding: 14px 20px; background: #fff; border-bottom: 1px solid #f1f5f9; position: sticky; top: 0; z-index: 30;" id="mobile-header">
             <button onclick="toggleSidebar()" style="background: none; border: none; cursor: pointer; padding: 4px;">
                 <svg width="24" height="24" fill="none" stroke="#374151" viewBox="0 0 24 24">
@@ -302,9 +294,7 @@
             <div></div>
         </div>
 
-        <!-- Page Content -->
         <div style="padding: 32px;">
-            <!-- Flash Messages -->
             @if(session('success'))
                 <div class="alert-success" style="margin-bottom: 20px;">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>

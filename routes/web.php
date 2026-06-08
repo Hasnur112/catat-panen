@@ -15,40 +15,35 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    
+    // Dashboard & Profil
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Panen CRUD (petani)
-    Route::resource('panen', PanenController::class)->except(['show']);
-
-    // Lihat panen petani lain (read-only, semua role)
-    Route::get('/petani', [PetaniController::class, 'index'])->name('petani.index');
-    Route::get('/petani/{petani}', [PetaniController::class, 'show'])->name('petani.show');
-
-    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Panen CRUD (Petani)
+    Route::resource('panen', PanenController::class)->except(['show']);
+
+    // Lihat data petani (Read-only)
+    Route::get('/petani', [PetaniController::class, 'index'])->name('petani.index');
+    Route::get('/petani/{petani}', [PetaniController::class, 'show'])->name('petani.show');
 
     // =====================
     // Admin routes
     // =====================
     Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+        
         // Kelola pengguna
         Route::resource('users', UserController::class)->except(['show']);
 
-        // Verifikasi panen
+        // Verifikasi Panen (Hanya akses list dan update status)
         Route::get('verifikasi', [VerifikasiController::class, 'index'])->name('verifikasi.index');
-        Route::post('verifikasi/{panen}/verify', [VerifikasiController::class, 'verify'])->name('verifikasi.verify');
+        Route::put('panen/{panen}/status', [VerifikasiController::class, 'updateStatus'])->name('panen.updateStatus');
         Route::post('verifikasi/verify-all', [VerifikasiController::class, 'verifyAll'])->name('verifikasi.verifyAll');
-        Route::get('verifikasi/{panen}/edit', [VerifikasiController::class, 'edit'])->name('verifikasi.edit');
-        Route::put('verifikasi/{panen}', [VerifikasiController::class, 'update'])->name('verifikasi.update');
-        Route::delete('verifikasi/{panen}', [VerifikasiController::class, 'destroy'])->name('verifikasi.destroy');
 
         // Master data varietas
-        Route::get('varietas', [VarietasController::class, 'index'])->name('varietas.index');
-        Route::post('varietas', [VarietasController::class, 'store'])->name('varietas.store');
-        Route::put('varietas/{varieta}', [VarietasController::class, 'update'])->name('varietas.update');
-        Route::delete('varietas/{varieta}', [VarietasController::class, 'destroy'])->name('varietas.destroy');
+        Route::resource('varietas', VarietasController::class)->only(['index', 'store', 'update', 'destroy']);
     });
 
     // =====================

@@ -15,7 +15,9 @@ class Panen extends Model
         'volume',
         'tanggal',
         'keterangan',
-        'status',
+        'foto_bukti',         // Tambahan untuk path gambar
+        'status',             // Sekarang mendukung 'Pending', 'Verified', 'Rejected'
+        'catatan_penolakan',  // Tambahan untuk feedback admin
     ];
 
     protected function casts(): array

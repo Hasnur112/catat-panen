@@ -2,7 +2,6 @@
     <x-slot name="title">Edit Data Panen</x-slot>
 
     <div style="max-width: 640px;">
-        <!-- Header -->
         <div style="margin-bottom: 28px;">
             <a href="{{ route('panen.index') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #64748b; font-size: 13px; font-weight: 500; text-decoration: none; margin-bottom: 12px;">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -17,12 +16,11 @@
             <p style="color: #64748b; font-size: 14px; margin: 4px 0 0;">Perbarui informasi catatan panen.</p>
         </div>
 
-        <!-- Form Card -->
         <div class="stat-card" style="padding: 32px;">
-            <form method="POST" action="{{ route('panen.update', $panen) }}">
+            {{-- Tambahkan enctype untuk mendukung upload file --}}
+            <form method="POST" action="{{ route('panen.update', $panen) }}" enctype="multipart/form-data">
                 @csrf @method('PUT')
 
-                <!-- Jenis Padi -->
                 <div class="form-group">
                     <label for="jenis_padi" class="form-label">Jenis Padi <span style="color: #dc2626;">*</span></label>
                     <select id="jenis_padi" name="jenis_padi" class="form-control">
@@ -34,7 +32,6 @@
                     @error('jenis_padi')<div class="form-error">{{ $message }}</div>@enderror
                 </div>
 
-                <!-- Volume -->
                 <div class="form-group">
                     <label for="volume" class="form-label">Volume Panen (kg) <span style="color: #dc2626;">*</span></label>
                     <div style="position: relative;">
@@ -46,7 +43,6 @@
                     @error('volume')<div class="form-error">{{ $message }}</div>@enderror
                 </div>
 
-                <!-- Tanggal -->
                 <div class="form-group">
                     <label for="tanggal" class="form-label">Tanggal Panen <span style="color: #dc2626;">*</span></label>
                     <input type="date" id="tanggal" name="tanggal" class="form-control"
@@ -55,7 +51,18 @@
                     @error('tanggal')<div class="form-error">{{ $message }}</div>@enderror
                 </div>
 
-                <!-- Keterangan -->
+                <div class="form-group">
+                    <label for="foto_bukti" class="form-label">Foto Bukti Panen</label>
+                    @if($panen->foto_bukti)
+                        <div style="margin-bottom: 8px;">
+                            <a href="{{ asset('storage/'.$panen->foto_bukti) }}" target="_blank" class="text-green-700 underline text-sm">Lihat foto saat ini</a>
+                        </div>
+                    @endif
+                    <input type="file" id="foto_bukti" name="foto_bukti" class="form-control" accept="image/*">
+                    <small style="color: #64748b; font-size: 12px;">Biarkan kosong jika tidak ingin mengubah foto.</small>
+                    @error('foto_bukti')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
+
                 <div class="form-group">
                     <label for="keterangan" class="form-label">Keterangan <span style="color: #94a3b8; font-weight: 400;">(opsional)</span></label>
                     <textarea id="keterangan" name="keterangan" rows="3" class="form-control"
@@ -63,7 +70,6 @@
                     @error('keterangan')<div class="form-error">{{ $message }}</div>@enderror
                 </div>
 
-                <!-- Actions -->
                 <div style="display: flex; gap: 12px; margin-top: 8px;">
                     <button type="submit" class="btn-primary" style="flex: 1; justify-content: center; padding: 12px;">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>

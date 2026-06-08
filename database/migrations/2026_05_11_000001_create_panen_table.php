@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('panen', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('jenis_padi', 100);
-            $table->decimal('volume', 10, 2);
-            $table->date('tanggal');
-            $table->text('keterangan')->nullable();
-            $table->enum('status', ['Pending', 'Verified'])->default('Pending');
-            $table->timestamps();
+        // Pastikan tabel 'panen' sudah ada, jika belum gunakan Schema::create
+        // Jika tabel sudah ada dan ingin menambah kolom, gunakan Schema::table
+        Schema::table('panen', function (Blueprint $table) {
+            // Menambahkan kolom foto bukti (disimpan sebagai string path)
+            $table->string('foto_bukti')->nullable()->after('keterangan');
+            
+            // Menambahkan kolom catatan penolakan
+            $table->text('catatan_penolakan')->nullable()->after('status');
+            
+            // Mengubah tipe enum status untuk menyertakan 'Rejected'
+            // Catatan: DB MySQL/MariaDB mendukung perubahan ini
+            $table->enum('status', ['Pending', 'Verified', 'Rejected'])->default('Pending')->change();
         });
     }
 
@@ -28,6 +31,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('panen');
+        Schema::table('panen', function (Blueprint $table) {
+            // Mengembalikan status ke semula jika di-rollback
+            $table->enum('status', ['Pending', 'Verified'])->default('Pending')->change();
+            
+            // Menghapus kolom yang ditambahkan
+            $table->dropColumn(['foto_bukti', 'catatan_penolakan']);
+        });
     }
 };
